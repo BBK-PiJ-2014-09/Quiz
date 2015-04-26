@@ -1,9 +1,65 @@
 # Quiz
-Pij - Quiz Coursework
+PiJ - Quiz Coursework
 
 
 Programming in Java
 Coursework assignment 5 — A Quiz System 2014-15
+
+How to play:
+1. Start/run ServerApp (only if not already started)
+2. Start/run ClientTest (multiple clients are permitted)
+
+You'll be presented with a list of available quizzes and prompted to choose one from the list to play.
+
+3. Choose a quiz to play.
+
+You'll be presented with the questions and the answer options, one question at a time, for the quiz selected.
+
+4. Answer each question as instructed.
+
+You will be given immediate feedback as to whether each of your answers is correct, or not. 
+
+At the end of the quiz, you will be given feedback on your score.
+Your quiz score will be persisted to file.
+
+You will be asked to submit your name and username details. These details, along with your quiz score, will also be persisted to file.
+
+NB. The application uses two JSON files to hold those details which we were instructed to persist in the assignment brief. This will require JSON to be installed on the assignment assessor's machine.
+I have submitted two files: Quizes.json and HighScoreList.json with the required structure. These files should both reside directly in the Server folder.
+
+How to submit a new quiz:
+1. Start/run ServerApp (only if not already started)
+2. Start/run ClientQuizAdmin (multiple clients are permitted)
+
+You'll be presented with the option either to submit a new quiz, or close an existing one.
+
+3. Choose to submit a new quiz.
+
+4. Submit your quiz questions and associated answers, as instructed.
+
+
+How to close a quiz:
+1. Start/run ServerApp (only if not already started)
+2. Start/run ClientQuizAdmin (multiple clients are permitted)
+
+You'll be presented with the option either to submit a new quiz, or close an existing one.
+
+3. Choose to close an existing quiz.
+
+You'll be prompted to enter the ID of the quiz you wish to close. (sorry I forgot to bring up a proper list of quizzes untilit was too late to code it, so you'll have to remember which QuidID to delete)
+
+4. Choose the quiz you wish to close.
+
+You'll be presented with the summary details of:
+a. the highest score for this quiz and 
+b. the details of the player, or players, attaining that score.
+
+The quiz questions and answers will be removed from file containing the quizzes.
+NB The Quiz specification is unclear as to whether the quiz closure summary details should be persisted, or removed. I have chosen to persist that information. It is therefore not removed from file. 
+
+
+
+
 
 1 The problem description
 You are asked to design and implement a simple on-line quiz game using Java RMI. This
