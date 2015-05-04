@@ -33,19 +33,28 @@ public class ClientTest
 		 Scanner in = new Scanner(System.in);
 		 int quizID = in.nextInt();
 		 Quiz currentQuiz = interfacetester.chooseQuiz(quizID);
-		 ArrayList<Question> questions = currentQuiz.getQuestionList();
-		 for (int i = 0; i < questions.size(); i++) 
+		 
+		 if (currentQuiz == null)
 		 {
-			 questions.get(i).ask(in);		 	
+			 System.out.println("You have selected an invalid Quiz ID. This client will now close");
 		 }
-		 
-		 System.out.println("Please specify your first name");
-		 String playerName = in.next();
-		 
-		 System.out.println("Please specify your username");
-		 String playerUserName = in.next();
-		 
-		 Player player = new Player(playerName, playerUserName);
-		 System.out.println(interfacetester.submitQuiz(currentQuiz, player));		 
+		 else
+		 {	 
+			 ArrayList<Question> questions = currentQuiz.getQuestionList();
+			 for (int i = 0; i < questions.size(); i++) 
+			 {
+				 questions.get(i).ask(in);		 	
+			 }
+			 System.out.println("Please specify your name");
+			 in.nextLine();
+			 String playerName = in.nextLine();
+			 
+			 System.out.println("Please specify your username");
+			 String playerUserName = in.nextLine();
+			 in.close();
+			 
+			 Player player = new Player(playerName, playerUserName);
+			 System.out.println(interfacetester.submitQuiz(currentQuiz, player));		 
+		 }
 	}
-}
+}	

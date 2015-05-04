@@ -1,4 +1,6 @@
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -23,6 +25,7 @@ public class ClientQuizAdmin
 		Remote remote = registry.lookup("Test server");
 				
 		QuizAdminInterface adminInterface = (QuizAdminInterface) remote;
+		QuizInterface interfacetester = (QuizInterface) remote;
 		
 		// First ask whether to create or close a quiz:
 		Scanner scanner = new Scanner(System.in);
@@ -33,17 +36,29 @@ public class ClientQuizAdmin
 		{
 			Quiz quiz = createQuiz(scanner);
 			long ans = adminInterface.createQuiz(quiz);
-			System.out.println("Ther server successfully added a quiz with id " + ans);
+			System.out.println("The server successfully added a quiz with id " + ans);
 			
 		} 
 		else if (answer.equals("2")) 
 		{
+			System.out.println("Please enter the ID of the quiz you'd like to close. As a reminder, the Quiz IDs are:");
+			ArrayList<QuizSummary> quizSummary = interfacetester.getQuizList();
+			for (int i = 0; i < quizSummary.size(); i++) 
+			{
+				System.out.println(quizSummary.get(i));
+			}
+
 			int idToClose = closeQuiz(scanner);
 			Outcome outcome = adminInterface.closeQuiz(idToClose);
 			
 			if (outcome == null) 
 			{
-				System.out.println("This quiz was not played by anyone!!");
+				System.out.println("This quiz was not played by anyone");
+				return;
+			}
+			if (outcome.getWinningScore() == -1) 
+			{
+				System.out.println("You have supplied an invalid QuizID");
 				return;
 			}
 			

@@ -57,8 +57,8 @@ b. the details of the player, or players, attaining that score.
 The quiz questions and answers will be removed from file containing the quizzes.
 NB The Quiz specification is unclear as to whether the quiz closure summary details should be persisted, or removed. I have chosen to persist that information. It is therefore not removed from file. 
 
-
-
+Sources:
+The questions for the 7 question quizzes have been taken from the QuizUp app.
 
 
 1 The problem description

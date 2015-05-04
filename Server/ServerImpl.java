@@ -26,6 +26,8 @@ public class ServerImpl extends UnicastRemoteObject implements QuizInterface, Qu
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static final int DEFAULT_SCORE = -1;
+	private static final int QUIZ_ID_NOT_FOUND = -1;
 	
 	protected ServerImpl() throws RemoteException 
 	{
@@ -82,6 +84,7 @@ public class ServerImpl extends UnicastRemoteObject implements QuizInterface, Qu
 		}
 		if (quizObject == null) 
 		{
+			System.out.println("You have supplied an invalid QuizID");
 			return null;
 		}
 		
@@ -216,7 +219,7 @@ public class ServerImpl extends UnicastRemoteObject implements QuizInterface, Qu
 		JSONObject jsonObj = (JSONObject) obj;
 		JSONArray jsonQuizArray = (JSONArray) jsonObj.get("Quizes");
 		
-		int quizToDelete = -1;		
+		int quizToDelete = QUIZ_ID_NOT_FOUND;		
 		for (int i = 0; i < jsonQuizArray.size(); i++) 
 		{
 			JSONObject jsonQuizObj = (JSONObject) jsonQuizArray.get(i);
@@ -227,6 +230,13 @@ public class ServerImpl extends UnicastRemoteObject implements QuizInterface, Qu
 			}
 		}
 
+		if (quizToDelete == QUIZ_ID_NOT_FOUND) 
+		{
+			//System.out.println("You have supplied an invalid QuizID");
+			Outcome nullQuizOutcome = new Outcome(null, DEFAULT_SCORE, QUIZ_ID_NOT_FOUND);
+			return nullQuizOutcome;
+		}		
+		
 		jsonQuizArray.remove(quizToDelete);
 		jsonObj.put("Quizes", jsonQuizArray);
 		
@@ -251,7 +261,7 @@ public class ServerImpl extends UnicastRemoteObject implements QuizInterface, Qu
 		
 		JSONArray jsonAttemptArray = (JSONArray) jsonAttemptArrayObject;
 
-		long highScore = -1;
+		long highScore = DEFAULT_SCORE;
 		for (int i = 0; i < jsonAttemptArray.size(); i++) 
 		{
 			JSONObject attempt = (JSONObject) jsonAttemptArray.get(i);
@@ -270,8 +280,7 @@ public class ServerImpl extends UnicastRemoteObject implements QuizInterface, Qu
 			}
 		}
 		
-		Outcome quizOutcome = new Outcome(highScorePlayers, (int) highScore, QuizID);
-		
+		Outcome quizOutcome = new Outcome(highScorePlayers, (int) highScore, QuizID);		
 		return quizOutcome;
 	}
 }
